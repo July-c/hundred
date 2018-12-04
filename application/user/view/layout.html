@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <title>{$setting['store']['values']['name']}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="renderer" content="webkit"/>
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <link rel="icon" type="image/png" href="/assets/user/i/favicon.ico"/>
+    <meta name="apple-mobile-web-app-title" content="{$setting['store']['values']['name']}"/>
+    <link rel="stylesheet" href="/assets/layer/theme/default/layer.css"/>
+    <link rel="stylesheet" href="/assets/user/css/app.css"/>
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_783249_oo2lzo85b4.css">
+    <script src="/assets/user/js/jquery.min.js"></script>
+    <script src="//at.alicdn.com/t/font_783249_e5yrsf08rap.js"></script>
+    <script>
+        BASE_URL = '{$base_url}';
+        STORE_URL = '/index.php?s=/user';
+		
+    </script>
+</head>
+
+<body data-type="">
+<div class="layer-g tpl-g">
+    <!-- 头部 -->
+    <header class="tpl-header">
+        <!-- 右侧内容 -->
+        <div class="tpl-header-fluid">
+            <!-- 侧边切换 -->
+            <div class="layer-fl tpl-header-button switch-button">
+                <i class="iconfont icon-menufold"></i>
+            </div>
+            <!-- 刷新页面 -->
+            <div class="layer-fl tpl-header-button refresh-button">
+                <i class="iconfont icon-refresh"></i>
+            </div>
+         
+			
+            <!-- 其它功能-->
+            <div class="layer-fr tpl-header-navbar">
+                <ul>
+                    <!-- 欢迎语 -->
+                    <li class="layer-text-sm tpl-header-navbar-welcome">
+                        <a href="{url('store.user/renew')}">欢迎你，<span>{$store['user']['user_name']}</span>
+                        </a>
+                    </li>
+                    <!-- 退出 -->
+                    <li class="layer-text-sm">
+                        <a href="{:url('user/login/logout')}">
+                            <i class="iconfont icon-tuichu"></i> 退出
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </header>
+    <!-- 侧边导航栏 -->
+    <div class="left-sidebar dis-flex">
+        <!-- 一级菜单 {$setting['store']['values']['name']}-->
+        <ul class="sidebar-nav">
+            <li class="sidebar-nav-heading"><img src="/assets/user/img/logo.png" width="60" /></li>
+           
+		  {foreach $menus as $key=>$item } 
+                <li class="sidebar-nav-link">
+                    <a href="<?= isset($item['index']) ? url($item['index']) : 'javascript:void(0);' ?>"
+                       class="{$item['active'] ? 'active' : ''}">
+                        
+                            <i class="iconfont sidebar-nav-link-logo {$item['icon']}"></i>
+                     
+                        {$item['name']}
+                    </a>
+                </li>
+			{/foreach}
+        </ul>
+        <!-- 子级菜单-->
+       <?php $second = isset($menus[$group]['submenu']) ? $menus[$group]['submenu'] : []; ?>
+		{if !empty($second)}
+            <ul class="left-sidebar-second">
+                <li class="sidebar-second-title">{$menus[$group]['name']}</li>
+                <li class="sidebar-second-item">
+                   
+					{volist name="second" id="item"}
+						{if !isset($item['submenu'])}
+                            <!-- 二级菜单-->
+                            <a href="{:url($item['index'])}" class="{$item['active'] ? 'active' : ''}">
+                                {$item['name']}
+                            </a>
+                        {else/}
+                            <!-- 三级菜单-->
+                            <div class="sidebar-third-item">
+                                <a href="javascript:void(0);"
+                                   class="sidebar-nav-sub-title {$item['active'] ? 'active' : ''}">
+                                    <i class="iconfont icon-caret"></i>
+                                    {$item['name']}
+                                </a>
+                                <ul class="sidebar-third-nav-sub">
+									{volist name="item.submenu" id="third"}
+                                        <li>
+                                            <a class="{$third['active'] ? 'active' : ''}"
+                                               href="{:url($third['index'])}">
+                                                {$third['name']}</a>
+                                        </li>
+                                    {/volist}
+                                </ul>
+                            </div>
+                        {/if}
+                    {/volist}
+                </li>
+            </ul>
+        {/if}
+    </div>
+
+    <!-- 内容区域 start -->
+    <div class="tpl-content-wrapper {if $second eq null}no-sidebar-second{/if}">
+        {__CONTENT__}
+    </div>
+    <!-- 内容区域 end -->
+
+</div>
+<script src="/assets/layer/layer.js"></script>
+<script src="/assets/user/js/jquery.form.min.js"></script>
+<script src="/assets/user/js/webuploader.html5only.js"></script>
+<script src="/assets/user/js/art-template.js"></script>
+<script src="/assets/user/js/app.js"></script>
+<script src="/assets/user/js/file.library.js"></script>
+<script src="/assets/user/js/amazeui.min.js"></script>
+</body>
+
+</html>

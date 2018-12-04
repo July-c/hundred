@@ -1,0 +1,191 @@
+<div class="row-content layer-cf">
+    <div class="row">
+        <div class="layer-u-sm-12 layer-u-md-12 layer-u-lg-12">
+            <div class="widget layer-cf">
+                <div class="widget-head layer-cf">
+                    <div class="widget-title layer-cf">分销订单</div>
+                </div>
+                <div class="widget-body layer-fr">
+                    <!-- 工具栏 -->
+                    <div class="page_toolbar layer-margin-bottom-xs layer-cf">
+                        <form class="toolbar-form" action="">
+                            <input type="hidden" name="s" value="/{$request->pathinfo()}">
+                            <input type="hidden" name="user_id" value="{$request->get('user_id')}">
+                            <div class="layer-u-sm-12 layer-u-md-9 layer-u-sm-push-3">
+                                <div class="layer fr">
+                                    <div class="layer-form-group layer-fl">
+                                        <select name="is_settled"
+                                                data-layer-selected="{btnSize: 'sm', placeholder: '是否结算佣金'}">
+                                            <option value=""></option>
+                                            <option value="-1" {$request->get('is_settled') == '-1' ? 'selected' : ''}>
+                                                全部
+                                            </option>
+                                            <option value="0" {$request->get('is_settled') === '0' ? 'selected' : ''}>
+                                                未结算
+                                            </option>
+                                            <option value="1" {$request->get('is_settled') == '1' ? 'selected' : ''}>
+                                                已结算
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="layer-form-group layer-fl">
+                                        <div class="layer-input-group layer-input-group-sm tpl-form-border-form">
+                                            <input type="text" class="layer-form-field" name="search"
+                                                   placeholder="请输入订单号"
+                                                   value="{$request->get('search')}">
+                                            <div class="layer-input-group-btn">
+                                                <button class="layer-btn layer-btn-default layer-icon-search"
+                                                        type="submit"></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="order-list layer-scrollable-horizontal layer-u-sm-12 layer-margin-top-xs">
+                        <table width="100%" class="layer-table layer-table-centered
+                        layer-text-nowrap layer-margin-bottom-xs">
+                            <thead>
+                            <tr>
+                                <th width="30%" class="item-detail">商品信息</th>
+                                <th width="10%">单价/数量</th>
+                                <th width="15%">实付款</th>
+                                <th>买家</th>
+                                <th>交易状态</th>
+                                <th>佣金结算</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                           {if !$list->isEmpty()} {foreach $list as $order}
+                                <tr class="order-empty">
+                                    <td colspan="6"></td>
+                                </tr>
+                                <tr>
+                                    <td class="layer-text-middle layer-text-left" colspan="6">
+                                        <span class="layer-margin-right-lg"> {$order['order_master']['create_time']}</span>
+                                        <span class="layer-margin-right-lg">订单号：{$order['order_master']['order_no'] }</span>
+                                    </td>
+                                </tr>
+                                
+                                {foreach ($order['order_master']['item'] as $i=>$item)}
+                                    <tr>
+                                        <td class="item-detail layer-text-middle">
+                                            <div class="item-image">
+                                                <img src="{$item['image']['file_path']}" alt="">
+                                            </div>
+                                            <div class="item-info">
+                                                <p class="item-title">{$item['name']}</p>
+                                                <p class="item-spec layer-link-muted">
+                                                    {$item['item_attr']}
+                                                </p>
+                                            </div>
+                                        </td>
+                                        <td class="layer-text-middle">
+                                            <p>￥{$item['item_price']}</p>
+                                            <p>×{$item['total_num']}</p>
+                                        </td>
+                                        {if ($i === 1) : $itemCount = count($order['order_master']['item'])}
+                                            <td class="layer-text-middle" rowspan="{$itemCount}">
+                                                <p>￥{$order['order_master']['pay_price']}</p>
+                                                <p class="layer-link-muted">
+                                                    (含运费：￥{$order['order_master']['express_price']})</p>
+                                            </td>
+                                            <td class="layer-text-middle" rowspan="{$itemCount}">
+                                                <p>{$order['order_master']['user']['nickName']}</p>
+                                                <p class="layer-link-muted">
+                                                    (用户id：{$order['order_master']['user']['user_id']})</p>
+                                            </td>
+                                            <td class="layer-text-middle" rowspan="{$itemCount}">
+                                                <p>付款状态：
+                                                    <span class="layer-badge
+                                                {$order['order_master']['pay_status']['value'] === 20 ? 'layer-badge-success' : ''}">
+                                                        {$order['order_master']['pay_status']['text']}</span>
+                                                </p>
+                                                <p>发货状态：
+                                                    <span class="layer-badge
+                                               {$order['order_master']['delivery_status']['value'] === 20 ? 'layer-badge-success' : ''}">
+                                                        {$order['order_master']['delivery_status']['text']}
+														</span>
+                                                </p>
+                                                <p>收货状态：
+                                                    <span class="layer-badge
+                                                {$order['order_master']['receipt_status']['value'] === 20 ? 'layer-badge-success' : ''}">
+                                                        {$order['order_master']['receipt_status']['text']}</span>
+                                                </p>
+                                            </td>
+                                            <td class="layer-text-middle" rowspan="{$itemCount}">
+                                                {if (!!$order['is_settled'])}
+                                                    <span class="layer-badge layer-badge-success">已结算</span>
+                                                {else/}
+                                                    <span class="layer-badge">未结算</span>
+                                                {/if}
+                                            </td>
+                                        {/if}
+                                    </tr>
+                               {/foreach}
+                                <tr>
+                                    <td class="layer-text-middle layer-text-left" colspan="6">
+                                        <div class="agent layer-cf">
+                                           {if $order['first_user_id'] > 0}
+                                                <div class="agent-item layer-fl layer-margin-right-xl">
+                                                    <p>
+                                                        <span class="layer-text-right">一级分销商：</span>
+                                                        <span>{$order['agent_first']['user']['nickName'] }
+                                                            (ID: {$order['agent_first']['user_id']})</span>
+                                                    </p>
+                                                    <p>
+                                                        <span class="layer-text-right">分销佣金：</span>
+                                                        <span class="x-color-red">￥{$order['first_money']}</span>
+                                                    </p>
+                                                </div>
+                                            {/if}
+                                            {if($order['second_user_id'] > 0)}
+                                                <div class="agent-item layer-fl layer-margin-right-xl">
+                                                    <p>
+                                                        <span class="layer-text-right">二级分销商：</span>
+                                                        <span>{$order['agent_second']['user']['nickName']}
+                                                            (ID: {$order['agent_second']['user_id']})</span>
+                                                    </p>
+                                                    <p>
+                                                        <span class="layer-text-right">分销佣金：</span>
+                                                        <span class="x-color-red">￥{$order['second_money']}</span>
+                                                    </p>
+                                                </div>
+                                           {/if}
+                                            {if $order['third_user_id'] > 0}
+                                                <div class="agent-item layer-fl layer-margin-right-xl">
+                                                    <p>
+                                                        <span class="layer-text-right">三级分销商：</span>
+                                                        <span>{$order['agent_third']['user']['nickName']}
+                                                            (ID: {$order['agent_third']['user_id']})</span>
+                                                    </p>
+                                                    <p>
+                                                        <span class="layer-text-right">分销佣金：</span>
+                                                        <span class="x-color-red">￥{$order['third_money']}</span>
+                                                    </p>
+                                                </div>
+                                           {/if}
+                                        </div>
+                                    </td>
+                                </tr>
+                            {/foreach} {else/}
+                                <tr>
+                                    <td colspan="6" class="layer-text-center">暂无记录</td>
+                                </tr>
+                            {/if}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="layer-u-lg-12 layer-cf">
+                        <div class="layer-fr">{$list->render()}</div>
+                        <div class="layer-fr pagination-total layer-margin-right">
+                            <div class="layer-vertical-align-middle">总记录：{$list->total()}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

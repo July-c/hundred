@@ -1,0 +1,74 @@
+<div class="row-content layer-cf">
+    <div class="row">
+        <div class="layer-u-sm-12 layer-u-md-12 layer-u-lg-12">
+            <div class="widget layer-cf widget-bff">
+                <form id="my-form" class="layer-form tpl-form-line-form" enctype="multipart/form-data" method="post">
+                    <div class="widget-body">
+                        <fieldset>
+                            <div class="widget-head layer-cf">
+                                <div class="widget-title layer-fl">小程序设置</div>
+                            </div>
+                            <div class="layer-form-group">
+                                <label class="layer-u-sm-3 layer-form-label form-require ron-wide">
+                                    AppID <span class="tpl-form-line-small-title">小程序ID</span>
+                                </label>
+                                <div class="layer-u-sm-9">
+                                    <input type="text" class="tpl-form-input" name="app[appkey]"
+                                           value="{$app['appkey']}" required>
+                                </div>
+                            </div>
+                            <div class="layer-form-group">
+                                <label class="layer-u-sm-3 layer-form-label form-require ron-wide">
+                                    AppSecret <span class="tpl-form-line-small-title">小程序密钥</span>
+                                </label>
+                                <div class="layer-u-sm-9">
+                                    <input type="text" class="tpl-form-input" name="app[app_secret]"
+                                           value="{$app['app_secret']}" required>
+                                </div>
+                            </div>
+                            <div class="widget-head layer-cf">
+                                <div class="widget-title layer-fl">微信支付设置</div>
+                            </div>
+                            <div class="layer-form-group">
+                                <label class="layer-u-sm-3 layer-form-label ron-wide">
+                                    微信支付商户号 <span class="tpl-form-line-small-title">MCHID</span>
+                                </label>
+                                <div class="layer-u-sm-9">
+                                    <input type="text" class="tpl-form-input" name="app[mchid]"
+                                           value="{$app['mchid']}">
+                                </div>
+                            </div>
+                            <div class="layer-form-group">
+                                <label class="layer-u-sm-3 layer-form-label ron-wide">
+                                    微信支付密钥 <span class="tpl-form-line-small-title">APIKEY</span>
+                                </label>
+                                <div class="layer-u-sm-9">
+                                    <input type="text" class="tpl-form-input" name="app[apikey]"
+                                           value="{$app['apikey']}">
+                                </div>
+                            </div>
+
+                            <div class="layer-form-group">
+                                <div class="layer-u-sm-9 layer-u-sm-push-3 layer-margin-top-lg">
+                                    <button type="submit" class="j-submit layer-btn layer-btn-secondary">提交
+                                    </button>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+
+        /**
+         * 表单验证提交
+         * @type {*}
+         */
+        $('#my-form').superForm();
+
+    });
+</script>

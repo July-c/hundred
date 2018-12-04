@@ -1,0 +1,56 @@
+<div class="row-content layer-cf">
+    <div class="row">
+        <div class="layer-u-sm-12 layer-u-md-12 layer-u-lg-12">
+            <div class="widget layer-cf widget-bff">
+                <form id="my-form" class="layer-form tpl-form-line-form" enctype="multipart/form-data" method="post">
+                    <div class="widget-body">
+                        <fieldset>
+                            <div class="widget-head layer-cf">
+                                <div class="widget-title layer-fl">编辑帮助</div>
+                            </div>
+                            <div class="layer-form-group">
+                                <label class="layer-u-sm-3 layer-u-lg-2 layer-form-label form-require">标题 </label>
+                                <div class="layer-u-sm-9 layer-u-end">
+                                    <input type="text" class="tpl-form-input" name="help[title]"
+                                           value="{$model['title']}" placeholder="请输入标题" required>
+                                </div>
+                            </div>
+                            <div class="layer-form-group">
+                                <label class="layer-u-sm-3 layer-u-lg-2 layer-form-label form-require">内容 </label>
+                                <div class="layer-u-sm-9 layer-u-end">
+                                    <textarea class="" rows="6" placeholder="请输入帮助内容"
+                                              name="help[content]">{$model['content']}</textarea>
+                                </div>
+                            </div>
+                            <div class="layer-form-group">
+                                <label class="layer-u-sm-3 layer-u-lg-2 layer-form-label form-require">排序 </label>
+                                <div class="layer-u-sm-9 layer-u-end">
+                                    <input type="number" class="tpl-form-input" name="help[sort]"
+                                           value="{$model['sort']}" required>
+                                </div>
+                            </div>
+
+                            <div class="layer-form-group">
+                                <div class="layer-u-sm-9 layer-u-sm-push-3 layer-margin-top-lg">
+                                    <button type="submit" class="j-submit layer-btn layer-btn-secondary">提交
+                                    </button>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+
+        /**
+         * 表单验证提交
+         * @type {*}
+         */
+        $('#my-form').superForm();
+
+    });
+</script>

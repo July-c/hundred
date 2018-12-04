@@ -1,0 +1,74 @@
+<div class="row-content layer-cf">
+    <div class="row">
+        <div class="layer-u-sm-12 layer-u-md-12 layer-u-lg-12">
+            <div class="widget layer-cf widget-bff">
+                <form id="my-form" class="layer-form tpl-form-line-form" method="post">
+                    <div class="widget-body">
+                        <fieldset>
+                            <div class="widget-head layer-cf">
+                                <div class="widget-title layer-fl">添加管理员</div>
+                            </div>
+                            <div class="layer-form-group">
+                                <label class="layer-u-sm-3 layer-u-lg-2 layer-form-label form-require">用户名 </label>
+                                <div class="layer-u-sm-9 layer-u-end">
+                                    <input type="text" class="tpl-form-input" name="user[user_name]"
+                                           value="" placeholder="请输入用户名" required>
+                                </div>
+                            </div>
+                            <div class="layer-form-group">
+                                <label class="layer-u-sm-3 layer-u-lg-2 layer-form-label form-require">所属角色 </label>
+                                <div class="layer-u-sm-9 layer-u-end">
+                                    <select name="user[role_id][]" multiple data-layer-selected="{btnSize: 'sm'}">
+                                        <?php if (isset($roleList)): foreach ($roleList as $role): ?>
+                                            <option value="<?= $role['role_id'] ?>"> <?= $role['role_name_h1'] ?></option>
+                                        <?php endforeach; endif; ?>
+                                    </select>
+                                        <small style="color:#fa6869">注：支持多选</small>
+                                    
+                                </div>
+                            </div>
+                            <div class="layer-form-group">
+                                <label class="layer-u-sm-3 layer-u-lg-2 layer-form-label form-require">登录密码 </label>
+                                <div class="layer-u-sm-9 layer-u-end">
+                                    <input type="password" class="tpl-form-input" name="user[password]"
+                                           value="" placeholder="请输入登录密码" required>
+                                </div>
+                            </div>
+                            <div class="layer-form-group">
+                                <label class="layer-u-sm-3 layer-u-lg-2 layer-form-label form-require">确认密码 </label>
+                                <div class="layer-u-sm-9 layer-u-end">
+                                    <input type="password" class="tpl-form-input" name="user[password_confirm]"
+                                           value="" placeholder="请输入确认密码" required>
+                                </div>
+                            </div>
+                            <div class="layer-form-group">
+                                <label class="layer-u-sm-3 layer-u-lg-2 layer-form-label">姓名 </label>
+                                <div class="layer-u-sm-9 layer-u-end">
+                                    <input type="text" class="tpl-form-input" name="user[real_name]"
+                                           value="">
+                                </div>
+                            </div>
+                            <div class="layer-form-group">
+                                <div class="layer-u-sm-9 layer-u-sm-push-3 layer-margin-top-lg">
+                                    <button type="submit" class="j-submit layer-btn layer-btn-secondary">提交
+                                    </button>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+
+        /**
+         * 表单验证提交
+         * @type {*}
+         */
+        $('#my-form').superForm();
+
+    });
+</script>

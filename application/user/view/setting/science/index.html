@@ -1,0 +1,113 @@
+<div class="row-content layer-cf">
+    <div class="row">
+        <div class="layer-u-sm-12 layer-u-md-12 layer-u-lg-12">
+            <div class="widget layer-cf">
+                <form id="my-form" class="layer-form tpl-form-line-form" enctype="multipart/form-data" method="post">
+                    <div class="widget-body">
+                        <fieldset>
+                            <div class="widget-head layer-cf">
+                                <div class="widget-title layer-fl">服务器信息</div>
+                            </div>
+                            <div class="layer-form-group">
+                                <div class="layer-scrollable-horizontal">
+                                    <table class="layer-table layer-table-centered">
+                                        <tbody>
+                                        <tr>
+                                            <th width="30%">参数</th>
+                                            <th>值</th>
+                                            <th></th>
+                                        </tr>
+                                        <?php if (isset($server)): foreach ($server as $item): ?>
+                                            <tr class="<?= isset($statusClass) ? $statusClass[$item['status']] : '' ?>">
+                                                <td><?= $item['name'] ?></td>
+                                                <td><?= $item['value'] ?> </td>
+                                                <td><?= $item['status'] !== 'normal' ? $item['remark'] : '' ?> </td>
+                                            </tr>
+                                        <?php endforeach; endif; ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <div class="widget-head layer-cf">
+                                <div class="widget-title layer-fl">PHP环境要求</div>
+                            </div>
+                            <div class="layer-form-group">
+                                <div class="layer-scrollable-horizontal">
+                                    <table class="layer-table layer-table-centered">
+                                        <tbody>
+                                        <tr>
+                                            <th width="30%">选项</th>
+                                            <th>要求</th>
+                                            <th>状态</th>
+                                            <th></th>
+                                        </tr>
+                                        <?php if (isset($phpinfo)): foreach ($phpinfo as $item): ?>
+                                            <tr class="<?= isset($statusClass) ? $statusClass[$item['status']] : '' ?>">
+                                                <td><?= $item['name'] ?></td>
+                                                <td><?= $item['value'] ?> </td>
+                                                <td>
+                                                    <?php if ($item['status'] !== 'danger'): ?>
+                                                        <i class="layer-icon-check x-color-green"></i>
+                                                    <?php else: ?>
+                                                        <i class="layer-icon-times x-color-red"></i>
+                                                    <?php endif; ?>
+                                                </td>
+                                                <td><?= $item['status'] !== 'normal' ? $item['remark'] : '' ?> </td>
+                                            </tr>
+                                        <?php endforeach; endif; ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <div class="widget-head layer-cf">
+                                <div class="widget-title layer-fl">目录权限监测</div>
+                            </div>
+                            <div class="layer-form-group">
+                                <div class="layer-scrollable-horizontal">
+                                    <table class="layer-table layer-table-centered">
+                                        <tbody>
+                                        <tr>
+                                            <th width="30%">名称</th>
+                                            <th class="layer-text-left">路径</th>
+                                            <th>状态</th>
+                                            <th></th>
+                                        </tr>
+                                        <?php if (isset($writeable)): foreach ($writeable as $item): ?>
+                                            <tr class="<?= isset($statusClass) ? $statusClass[$item['status']] : '' ?>">
+                                                <td><?= $item['name'] ?></td>
+                                                <td class="layer-text-left"><?= $item['value'] ?> </td>
+                                                <td>
+                                                    <?php if ($item['status'] !== 'danger'): ?>
+                                                        <i class="layer-icon-check x-color-green"></i>
+                                                    <?php else: ?>
+                                                        <i class="layer-icon-times x-color-red"></i>
+                                                    <?php endif; ?>
+                                                </td>
+                                                <td><?= $item['status'] !== 'normal' ? $item['remark'] : '' ?> </td>
+                                            </tr>
+                                        <?php endforeach; endif; ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </fieldset>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+
+        /**
+         * 表单验证提交
+         * @type {*}
+         */
+        $('#my-form').superForm();
+
+    });
+</script>

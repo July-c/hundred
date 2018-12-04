@@ -1,0 +1,171 @@
+<div class="row-content layer-cf">
+    <div class="row">
+        <div class="layer-u-sm-12 layer-u-md-12 layer-u-lg-12">
+            <div class="widget layer-cf">
+                <div class="widget-head layer-cf">
+                    <div class="widget-title layer-cf">{$title}</div>
+                </div>
+                <div class="widget-body layer-fr">
+                    <!-- 工具栏 -->
+                    <div class="page_toolbar layer-margin-bottom-xs layer-cf">
+                        <form id="form-search" class="toolbar-form" action="">
+                            <input type="hidden" name="s" value="/{$request->pathinfo()}">
+                            <input type="hidden" name="dataType" value="{$dataType}">
+                            <div class="layer-u-sm-12 layer-u-md-6">
+                                <div class="layer-form-group">
+                                    <div class="layer-btn-toolbar">
+                                        <div class="layer-btn-group layer-btn-group-xs">
+                                            <a class="j-export layer-btn layer-btn-success layer-radius"
+                                               href="javascript:void(0);">
+                                                <i class="iconfont icon-daochu layer-margin-right-xs"></i>订单导出
+                                            </a>
+                                            {if $dataType heq 'delivery'}
+                                                <a class="j-export layer-btn layer-btn-secondary layer-radius"
+                                                   href="{:url('order.operate/batchDelivery')}">
+                                                    <i class="iconfont icon-daoru layer-margin-right-xs"></i>批量发货
+                                                </a>
+                                            {/if}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="layer-u-sm-12 layer-u-md-6">
+                                <div class="layer fr">
+                                    <div class="layer-form-group layer-fl">
+                                        <div class="layer-input-group layer-input-group-sm tpl-form-border-form">
+                                            <input type="text" class="layer-form-field" name="order_no"
+                                                   placeholder="请输入订单号"
+                                                   value="{$request->get('order_no')}">
+                                            <div class="layer-input-group-btn">
+                                                <button class="layer-btn layer-btn-default layer-icon-search"
+                                                        type="submit"></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="order-list layer-scrollable-horizontal layer-u-sm-12 layer-margin-top-xs">
+                        <table width="100%" class="layer-table layer-table-centered
+                        layer-text-nowrap layer-margin-bottom-xs">
+                            <thead>
+                            <tr>
+                                <th width="30%" class="item-detail">商品信息</th>
+                                <th width="10%">单价/数量</th>
+                                <th width="15%">实付款</th>
+                                <th>买家</th>
+                                <th>交易状态</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {if (!$list->isEmpty())}{foreach $list as $order}
+                                <tr> 
+                                    <td class="layer-text-middle layer-text-left" colspan="6" style="border-bottom:none;">
+                                        <span class="layer-margin-right-lg"> {$order['create_time']}</span>
+                                        <span class="layer-margin-right-lg">订单号：{$order['order_no']}</span>
+                                    </td>
+                               </tr>
+                              
+                                {foreach $order['item'] as $i=>$item}
+                                    <tr>
+                                        <td class="item-detail layer-text-middle">
+                                            <div class="item-image">
+                                                <img src="{$item['image']['file_path']}" alt="">
+                                            </div>
+                                            <div class="item-info">
+                                                <p class="item-title">{$item['name']}</p>
+                                                <p class="item-spec layer-link-muted">
+                                                    {$item['goods_attr']}
+                                                </p>
+                                            </div>
+                                        </td>
+                                        <td class="layer-text-middle">
+                                            <p>￥{$item['item_price']}</p>
+                                            <p>×{$item['total_num']}</p>
+                                        </td>
+                                        {if ($i === 1) : $itemCount = count($order['item'])}
+                                            <td class="layer-text-middle" rowspan="{$itemCount}">
+                                                <p>￥{$order['pay_price']}</p>
+                                                <p class="layer-link-muted">(含运费：￥{$order['express_price']})</p>
+                                            </td>
+                                            <td class="layer-text-middle" rowspan="{$itemCount}">
+                                                <p>{$order['user']['nickName']}</p>
+                                                <p class="layer-link-muted">(用户id：{$order['user']['user_id']})</p>
+                                            </td>
+                                            <td class="layer-text-middle" rowspan="{$itemCount}">
+                                                <p>付款状态：
+                                                    <span class="layer-badge
+                                                {$order['pay_status']['value'] === 20 ? 'layer-badge-success' : ''}">
+                                                        {$order['pay_status']['text']}</span>
+                                                </p>
+                                                <p>发货状态：
+                                                    <span class="layer-badge
+                                                {$order['delivery_status']['value'] === 20 ? 'layer-badge-success' : ''}">
+                                                        {$order['delivery_status']['text']}</span>
+                                                </p>
+                                                <p>收货状态：
+                                                    <span class="layer-badge
+                                                {$order['receipt_status']['value'] === 20 ? 'layer-badge-success' : ''}">
+                                                        {$order['receipt_status']['text']}</span>
+                                                </p>
+                                            </td>
+                                            <td class="layer-text-middle" rowspan="{$itemCount}">
+                                                <div class="tpl-table-black-operation">
+                                                    <a class="tpl-table-black-operation-green"
+                                                       href="{:url('order/detail', ['order_id' => $order['order_id']])}">
+                                                        订单详情</a>
+                                                    {if ($order['pay_status']['value'] === 20
+                                                        && $order['delivery_status']['value'] === 10)}
+                                                        <a class="tpl-table-black-operation"
+                                                           href="{:url('order/detail#delivery',
+                                                               ['order_id' => $order['order_id']])}">
+                                                            去发货</a>
+                                                    {/if}
+                                                </div>
+                                            </td>
+                                        {/if}
+                                    </tr>
+                                {/foreach}
+                            {/foreach} {else/}
+                                <tr>
+                                    <td colspan="6" class="layer-text-center">暂无记录</td>
+                                </tr>
+                            {/if}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="layer-u-lg-12 layer-cf">
+                        <div class="layer-fr">{$list|raw} </div>
+                        <div class="layer-fr pagination-total layer-margin-right">
+                            <div class="layer-vertical-align-middle">总记录：{$list->total()}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+
+    $(function () {
+
+        /**
+         * 订单导出
+         */
+        $('.j-export').click(function () {
+	
+            var data = {};
+            var formData = $('#form-search').serializeArray();
+            $.each(formData, function () {
+                this.name !== 's' && (data[this.name] = this.value);
+            });
+            window.location = "{:url('order.operate/export')}" + '&' + $.urlEncode(data);
+        });
+
+    });
+
+</script>
+

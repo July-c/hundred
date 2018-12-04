@@ -1,0 +1,131 @@
+<div class="row-content layer-cf">
+    <div class="row">
+        <div class="layer-u-sm-12 layer-u-md-12 layer-u-lg-12">
+            <div class="widget layer-cf ">
+                <div class="widget-head layer-cf">
+                    <div class="widget-title layer-cf">商品分类</div>
+                </div>
+                <div class="widget-body layer-fr">
+                    <div class="tips layer-margin-bottom-sm layer-u-sm-12">
+                        <div class="pre">
+                            <p> 注：商品分类最多添加2级，分类图片可参考
+                                <a href="<?= url('app.page/category') ?>" target="_blank">分类页模板</a> 上传</p>
+                        </div>
+                    </div>
+                    <div class="layer-u-sm-12 layer-u-md-6 layer-u-lg-6">
+                        <div class="layer-form-group">
+                            <div class="layer-btn-toolbar">
+                                <div class="layer-btn-group layer-btn-group-xs">
+                                    <a class="layer-btn layer-btn-default layer-btn-success layer-radius"
+                                       href="{:url('item.category/add')}">
+                                        <span class="layer-icon-plus"></span> 新增
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layer-u-sm-12">
+                        <table width="100%" class="layer-table layer-table-compact layer-table-striped tpl-table-black ">
+                            <thead>
+                            <tr>
+                                <th>分类ID</th>
+                                <th>分类名称</th>
+                                <th>分类排序</th>
+                                <th>添加时间</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {if (!empty($list))} {foreach $list as $first}
+                                <tr>
+                                    <td class="layer-text-middle">{$first['category_id']}</td>
+                                    <td class="layer-text-middle">{$first['name']}</td>
+                                    <td class="layer-text-middle">{$first['sort']}</td>
+                                    <td class="layer-text-middle">{$first['create_time']}</td>
+                                    <td class="layer-text-middle">
+                                        <div class="tpl-table-black-operation">
+                                            <a class="tpl-table-black-operation-warning" href="{:url('item/index',
+                                                ['category_id' => $first['category_id']])}">
+                                                <i class="layer-icon-pencil"></i> 商品列表
+                                            </a>
+											<a href="{:url('item.category/edit',
+                                                ['category_id' => $first['category_id']])}">
+                                                <i class="layer-icon-pencil"></i> 编辑
+                                            </a>
+                                            <a href="javascript:;" class="item-delete tpl-table-black-operation-del"
+                                               data-id="{$first['category_id']}">
+                                                <i class="layer-icon-trash"></i> 删除
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+								{if isset($first['child'])}{foreach $first['child'] as $two}
+                                
+                                    <tr>
+                                        <td class="layer-text-middle">{$two['category_id']}</td>
+                                        <td class="layer-text-middle">　-- {$two['name']}</td>
+                                        <td class="layer-text-middle">{$two['sort']}</td>
+                                        <td class="layer-text-middle">{$two['create_time']}</td>
+                                        <td class="layer-text-middle">
+                                            <div class="tpl-table-black-operation">
+												<a class="tpl-table-black-operation-warning" href="{:url('item/index',
+													['category_id' => $two['category_id']])}">
+													<i class="layer-icon-pencil"></i> 商品列表
+												</a>
+                                                <a href="{:url('item.category/edit',
+                                                    ['category_id' => $two['category_id']])}">
+                                                    <i class="layer-icon-pencil"></i> 编辑
+                                                </a>
+                                                <a href="javascript:;" class="item-delete tpl-table-black-operation-del"
+                                                   data-id="{$two['category_id']}">
+                                                    <i class="layer-icon-trash"></i> 删除
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+									{if isset($two['child'])}{foreach $two['child'] as $three}
+                                   
+                                        <tr>
+                                            <td class="layer-text-middle">{$three['category_id']}</td>
+                                            <td class="layer-text-middle">　　　-- {$three['name']}</td>
+                                            <td class="layer-text-middle">{$three['create_time']}</td>
+                                            <td class="layer-text-middle">
+                                                <div class="tpl-table-black-operation">
+                                                    <a href="{:url('item.category/edit',
+                                                        ['category_id' => $three['category_id']])}">
+                                                        <i class="layer-icon-pencil"></i> 编辑
+                                                    </a>
+                                                    <a href="javascript:;"
+                                                       class="item-delete tpl-table-black-operation-del"
+                                                       data-id="{$three['category_id']}">
+                                                        <i class="layer-icon-trash"></i> 删除
+                                                    </a>
+                                                </div>
+                                            </td>
+                                        </tr>
+										{/foreach}{/if}
+                                 
+									{/foreach}{/if}
+                         
+                            {/foreach}{else/}
+                                <tr>
+                                    <td colspan="5" class="layer-text-center">暂无记录</td>
+                                </tr>
+                            {/if}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+        // 删除元素
+        var url = "{:url('item.category/delete')}";
+        $('.item-delete').delete('category_id', url);
+
+    });
+</script>
+

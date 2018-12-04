@@ -1,0 +1,79 @@
+<div class="row-content layer-cf">
+    <div class="row">
+        <div class="layer-u-sm-12 layer-u-md-12 layer-u-lg-12">
+            <div class="widget layer-cf widget-bff">
+                <form id="my-form" class="layer-form tpl-form-line-form" enctype="multipart/form-data" method="post">
+                    <div class="widget-body">
+                        <fieldset>
+                            <div class="widget-head layer-cf">
+                                <div class="widget-title layer-fl">清理缓存</div>
+                            </div>
+                            <div class="layer-form-group">
+                                <label class="layer-u-sm-3 layer-u-lg-2 layer-form-label form-require">
+                                    数据缓存
+                                </label>
+                                <div class="layer-u-sm-9 layer-u-end">
+                                    {foreach $cacheList as $key => $item}
+                                        <label class="layer-checkbox-inline">
+                                            <input type="checkbox" name="cache[keys][]" value="{$key}"
+                                                   data-am-ucheck checked required>
+                                            {$item['name']}
+                                        </label>
+                                    {/foreach}
+                                </div>
+                            </div>
+                            {if (isset($isForce) && $isForce === true)}
+                                <div class="layer-form-group">
+                                    <label class="layer-u-sm-3 layer-u-lg-2 layer-form-label form-require"> 强制模式 </label>
+                                    <div class="layer-u-sm-9 layer-u-end">
+                                        <label class="layer-radio-inline">
+                                            <input type="radio" name="cache[isForce]" value="0" checked
+                                                   data-am-ucheck>
+                                            否
+                                        </label>
+                                        <label class="layer-radio-inline">
+                                            <input type="radio" name="cache[isForce]" value="1" data-am-ucheck>
+                                            是
+                                        </label>
+                                        <div class="help-block">
+                                            <small class="x-color-red">此操作将会强制清空缓存目录，包含用户授权登录状态、用户购物车数据，仅允许在开发环境中使用
+                                            </small>
+                                        </div>
+                                    </div>
+                                </div>
+                            {else/}
+                             
+                                <div class="layer-form-group">
+                                    <div class="layer-u-sm-9 layer-u-sm-push-3">
+                                        <small>
+                                            <a href="{:url('', ['isForce' => true])}">
+                                                进入强制模式</a>
+                                        </small>
+                                    </div>
+                                </div>
+                           
+                            {/if}
+                            <div class="layer-form-group">
+                                <div class="layer-u-sm-9 layer-u-sm-push-3 layer-margin-top-lg">
+                                    <button type="submit" class="j-submit layer-btn layer-btn-secondary">提交
+                                    </button>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+
+        /**
+         * 表单验证提交
+         * @type {*}
+         */
+        $('#my-form').superForm();
+
+    });
+</script>

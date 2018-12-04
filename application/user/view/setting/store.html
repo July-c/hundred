@@ -1,0 +1,57 @@
+<div class="row-content layer-cf">
+    <div class="row">
+        <div class="layer-u-sm-12 layer-u-md-12 layer-u-lg-12">
+            <div class="widget layer-cf widget-bff">
+                <form id="my-form" class="layer-form tpl-form-line-form" method="post">
+                    <div class="widget-body">
+                        <fieldset>
+                            <div class="widget-head layer-cf">
+                                <div class="widget-title layer-fl">商城设置</div>
+                            </div>
+                            <div class="layer-form-group">
+                                <label class="layer-u-sm-3 layer-u-lg-2 layer-form-label form-require"> 商城名称 </label>
+                                <div class="layer-u-sm-9 layer-u-end">
+                                    <input type="text" class="tpl-form-input" name="store[name]"
+                                           value="{$values['name']}" required>
+                                </div>
+                            </div>
+                            <div class="layer-form-group">
+                                <label class="layer-u-sm-3 layer-u-lg-2 layer-form-label"> 快递100 Customer </label>
+                                <div class="layer-u-sm-9 layer-u-end">
+                                    <input type="text" class="tpl-form-input" name="store[kuaidi100][customer]"
+                                           value="{$values['kuaidi100']['customer']}">
+                                    <small>用于查询物流信息，<a href="https://www.kuaidi100.com/openapi/"
+                                                       target="_blank">快递100申请</a></small>
+                                </div>
+                            </div>
+                            <div class="layer-form-group">
+                                <label class="layer-u-sm-3 layer-u-lg-2 layer-form-label"> 快递100 Key </label>
+                                <div class="layer-u-sm-9 layer-u-end">
+                                    <input type="text" class="tpl-form-input" name="store[kuaidi100][key]"
+                                           value="{$values['kuaidi100']['key']}">
+                                </div>
+                            </div>
+                            <div class="layer-form-group">
+                                <div class="layer-u-sm-9 layer-u-sm-push-3 layer-margin-top-lg">
+                                    <button type="submit" class="j-submit layer-btn layer-btn-secondary">提交
+                                    </button>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+
+        /**
+         * 表单验证提交
+         * @type {*}
+         */
+        $('#my-form').superForm();
+
+    });
+</script>

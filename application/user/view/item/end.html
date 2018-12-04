@@ -1,0 +1,162 @@
+<div class="row-content layer-cf">
+    <div class="row">
+        <div class="layer-u-sm-12 layer-u-md-12 layer-u-lg-12">
+            <div class="widget layer-cf">
+                <div class="widget-head layer-cf">
+                    <div class="widget-title layer-cf">出售中的商品</div>
+                </div>
+                <div class="widget-body layer-fr">
+                    <!-- 工具栏 -->
+                    <div class="page_toolbar layer-margin-bottom-xs layer-cf">
+                        <form class="toolbar-form" action="">
+                            <input type="hidden" name="s" value="/{$request->pathinfo()}">
+                        
+                            <div class="layer-u-sm-12 layer-u-md-9">
+                                <div class="layer fr">
+                                    <div class="layer-form-group layer-fl">
+                                        <span style="display:none;">{$category_id = $request->get('category_id') ?: null}</span>
+                                        <select name="category_id"
+                                                data-layer-selected="{searchBox: 1, btnSize: 'sm',  placeholder: '商品分类', maxHeight: 400}">
+                                            <option value=""></option>
+                                          {if isset($catgory)}:
+
+											{foreach $catgory as $first}
+                                                <option value="{$first['category_id']}"
+                                                    {$category_id == $first['category_id'] ? 'selected' : ''}>
+                                                    {$first['name']}</option>
+                                                {if isset($first['child'])}{foreach $first['child'] as $two}
+                                                    <option value="{$two['category_id']}"
+                                                        {$category_id == $two['category_id'] ? 'selected' : ''}>
+                                                        　　{$two['name']}</option>
+                                                    {if isset($two['child'])}{foreach $two['child'] as $three}
+                                                        <option value="{$three['category_id']}"
+                                                            {$category_id == $three['category_id'] ? 'selected' : ''}>
+                                                            　　　{$three['name']}</option>
+                                                    {/foreach}{/if}
+                                                {/foreach}{/if}
+                                            {/foreach}{/if}
+                                        </select>
+                                    </div>
+                                    <div class="layer-form-group layer-fl">
+                                      <span style="display:none;"> {$status = $request->get('status') ?: null}</span>
+                                        <select name="status"
+                                                data-layer-selected="{btnSize: 'sm', placeholder: '商品状态'}">
+                                            <option value=""></option>
+                                            <option value="10"
+                                                {$status == 10 ? 'selected' : ''}>上架
+                                            </option>
+                                            <option value="20"
+                                                {$status == 20 ? 'selected' : ''}>下架
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="layer-form-group layer-fl">
+                                        <div class="layer-input-group layer-input-group-sm tpl-form-border-form">
+                                            <input type="text" class="layer-form-field" name="name"
+                                                   placeholder="请输入商品名称"
+                                                   value="{$request->get('name')}">
+                                            <div class="layer-input-group-btn">
+                                                <button class="layer-btn layer-btn-default layer-icon-search"
+                                                        type="submit"></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="layer-scrollable-horizontal layer-u-sm-12">
+                        <table width="100%" class="layer-table layer-table-compact layer-table-striped
+                         tpl-table-black layer-text-nowrap">
+                            <thead>
+                            <tr>
+                                <th>商品ID</th>
+                                <th>图片</th>
+                                <th>名称</th>
+                                <th>分类</th>
+                                <th>销量</th>
+                                <th>排序</th>
+                   
+                                <th>添加时间</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {if !$list->isEmpty()}{foreach $list as $item}
+                                <tr>
+                                    <td class="layer-text-middle">{$item['item_id']}</td>
+                                    <td class="am-text-middle">
+                                    
+                                        <a href="{$item['image'][0]['file_path']}"
+                                           title="点击查看大图" target="_blank">
+                                            <img src="{$item['image'][0]['file_path']}"
+                                                 width="50" height="50" alt="商品图片">
+                                        </a>
+                                    </td>
+                                    <td class="layer-text-middle">
+                                        <p class="item-title">{$item['name']}</p>
+                                    </td>
+                                    <td class="layer-text-middle">{$item['category']['name']}</td>
+                                    <td class="layer-text-middle">{$item['sales_actual']}</td>
+                                    <td class="layer-text-middle">{$item['sort']}</td>
+                               
+                                    <td class="layer-text-middle">{$item['create_time']}</td>
+                                    <td class="layer-text-middle">
+                                        <div class="tpl-table-black-operation">
+										
+                                            <a class="tpl-table-black-operation-green j-state"  data-id="{$item['item_id']}" >
+                                                恢复
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+								{/foreach}{else/}
+
+                                <tr>
+                                    <td colspan="9" class="layer-text-center">暂无记录</td>
+                                </tr>
+                            {/if}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="layer-u-lg-12 layer-cf">
+                        <div class="layer-fr">{$list|raw} </div>
+                        <div class="layer-fr pagination-total layer-margin-right">
+                            <div class="layer-vertical-align-middle">总记录：{$list->total()}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+
+        // 商品状态
+        $('.j-state').click(function () {
+            var data = $(this).data();
+            layer.confirm('确定要' + (parseInt(data.state) === 10 ? '下架' : '恢复') + '该商品吗？'
+                , {title: '友情提示'}
+                , function (index) {
+                    $.post("{:url('item/recovery')}"
+                        , {
+                            item_id: data.id
+                        }
+                        , function (result) {
+                            result.code === 1 ? $.show_success(result.msg, result.url)
+                                : $.show_error(result.msg);
+                        });
+                    layer.close(index);
+                });
+
+        });
+
+        // 删除元素
+        var url = "{:url('item/delete')}";
+        $('.item-delete').delete('item_id', url);
+
+    });
+</script>
+

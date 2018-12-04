@@ -1,0 +1,24 @@
+<div class="row-content layer-cf">
+    <div class="row">
+        <div class="layer-u-sm-12 layer-u-md-12 layer-u-lg-12">
+            <div class="widget layer-cf ">
+                <div>
+					<div>
+						<img src=""/>
+						<em>无权操作</em>
+					</div>
+					<p>页面自动<span>跳转</span> 等待时间：3</p>
+				</div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+        // 删除元素
+        var url = "{url('user/delete')}";
+        $('.item-delete').delete('user_id', url, '删除后不可恢复，确定要删除吗？');
+
+    });
+</script>
+

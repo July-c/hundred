@@ -1,0 +1,114 @@
+@charset "UTF-8";
+.uploader-list .file-item img {
+  width: 110px; }
+
+/* 多规格 */
+.item-spec-many {
+  display: none; }
+  .item-spec-many .item-spec-box {
+    margin-top: 15px;
+    border: 1px solid #e4e4e4;
+    padding: 20px;
+    border-radius: 4px; }
+  .item-spec-many input {
+    font-size: 1.3rem !important;
+    padding-left: 10px !important;
+    border: 1px solid #e3e2e5 !important; }
+    .item-spec-many input.am-field-error {
+      border-color: #dd514c !important; }
+  .item-spec-many .spec-group-item {
+    margin-bottom: 25px; }
+    .item-spec-many .spec-group-item .spec-group-name {
+      margin-bottom: 15px; }
+      .item-spec-many .spec-group-item .spec-group-name span {
+        font-size: 1.5rem; }
+      .item-spec-many .spec-group-item .spec-group-name .icon-shanchu1 {
+        display: inline-block; }
+    .item-spec-many .spec-group-item .spec-list .spec-item {
+      position: relative;
+      margin-right: 12px;
+      margin-bottom: 12px; }
+      .item-spec-many .spec-group-item .spec-list .spec-item span {
+        min-width: 50px;
+        display: inline-block;
+        border: 1px solid #ddd;
+        text-align: center;
+        padding: 0 15px;
+        border-radius: 2px;
+        font-size: 1.3rem;
+        line-height: 30px; }
+      .item-spec-many .spec-group-item .spec-list .spec-item:hover .icon-shanchu1 {
+        visibility: visible; }
+      .item-spec-many .spec-group-item .spec-list .spec-item .icon-shanchu1 {
+        position: absolute;
+        width: 20px;
+        top: -9px;
+        right: -9px;
+        visibility: hidden; }
+    .item-spec-many .spec-group-item .spec-item-add input {
+      width: 110px;
+      border-top-left-radius: 4px;
+      border-bottom-left-radius: 4px; }
+    .item-spec-many .spec-group-item .spec-item-add button {
+      display: table-cell;
+      height: 31px;
+      font-size: 1.3rem;
+      border-color: #fa6869;
+	  background:#fa6869;
+	  color:#fff;
+      border-left: none;
+      border-top-right-radius: 4px;
+      border-bottom-right-radius: 4px;
+      outline: none; 
+	  margin-left:5px;}
+  .item-spec-many .icon-shanchu1 {
+    cursor: pointer;
+    text-align: center;
+    color: #fa6869;
+    font-size: 1.3rem; }
+    .item-spec-many .icon-shanchu1:hover {
+      color: #6b6b6b; }
+  .item-spec-many .spec-group-button button {
+    color: #2589ff;
+    background-color: #fff;
+    border-color: #2589ff;
+    font-size: 12px;
+    border-radius: 4px;
+    outline: 0;
+    font-weight: 400;
+    padding: .6em 1em;
+    outline: none !important; }
+  .item-spec-many .spec-group-add {
+    display: none; }
+    .item-spec-many .spec-group-add .spec-group-add-item {
+      margin-bottom: 10px; }
+      .item-spec-many .spec-group-add .spec-group-add-item input {
+        width: 160px;
+        border-radius: 4px;
+        display: inline-block;
+        margin-left: 12px; }
+  .item-spec-many .item-sku {
+    display: none; }
+    .item-spec-many .item-sku .item-spec-line {
+      border: 1px dashed #e3e2e5; }
+    .item-spec-many .item-sku .spec-batch {
+      margin-bottom: 2rem; }
+      .item-spec-many .item-sku .spec-batch .am-form-label {
+        padding-top: 0; }
+      .item-spec-many .item-sku .spec-batch .am-form-group {
+        margin-left: .6rem; }
+        .item-spec-many .item-sku .spec-batch .am-form-group input {
+          width: 140px; }
+    .item-spec-many .item-sku .spec-sku-tabel td.td-spec-value {
+      padding: .7rem 1.3rem !important; }
+    .item-spec-many .item-sku .spec-sku-tabel input {
+      display: inline-block !important; }
+      .item-spec-many .item-sku .spec-sku-tabel input.ipt-item-no {
+        width: 140px; }
+      .item-spec-many .item-sku .spec-sku-tabel input.ipt-w80 {
+        width: 80px; }
+  .item-spec-many .spec-group-button button:hover, .item-spec-many .spec-group-button button:focus {
+    color: #fbfbfb;
+    background-color: #19a7f0; }
+
+/*# sourceMappingURL=item.css.map */

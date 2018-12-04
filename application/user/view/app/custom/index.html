@@ -1,0 +1,78 @@
+<div class="row-content layer-cf">
+    <div class="row">
+        <div class="layer-u-sm-12 layer-u-md-12 layer-u-lg-12">
+            <div class="widget layer-cf">
+                <div class="widget-head layer-cf">
+                    <div class="widget-title layer-cf">帮助中心</div>
+                </div>
+                <div class="widget-body layer-fr">
+                    <div class="layer-u-sm-12 layer-u-md-6 layer-u-lg-6">
+                        <div class="layer-form-group">
+                            <div class="layer-btn-toolbar">
+                                <div class="layer-btn-group layer-btn-group-xs">
+                                    <a class="layer-btn layer-btn-default layer-btn-success layer-radius"
+                                       href="{:url('app.help/add')}">
+                                        <span class="layer-icon-plus"></span> 新增
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layer-u-sm-12">
+                        <table width="100%" class="layer-table layer-table-compact layer-table-striped tpl-table-black ">
+                            <thead>
+                            <tr>
+                                <th>标题</th>
+                                <th>内容</th>
+                                <th>排序</th>
+                                <th>添加时间</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                           {if !$list->isEmpty()}{foreach $list as $item}
+                                <tr>
+                                    <td class="layer-text-middle">
+                                        <p class="item-title">{$item['title']}</p>
+                                    </td>
+                                    <td class="layer-text-middle">
+                                        <p class="item-title" style="max-width: 400px;">{$item['content']}</p>
+                                    </td>
+                                    <td class="layer-text-middle">{$item['sort']}</td>
+                                    <td class="layer-text-middle">{$item['create_time']}</td>
+                                    <td class="layer-text-middle">
+                                        <div class="tpl-table-black-operation">
+                                            <a href="{:url('app.help/edit',
+                                                ['help_id' => $item['help_id']])}">
+                                                <i class="layer-icon-pencil"></i> 编辑
+                                            </a>
+                                            <a href="javascript:;" class="item-delete tpl-table-black-operation-del"
+                                               data-id="{$item['help_id']}">
+                                                <i class="layer-icon-trash"></i> 删除
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            {/foreach}{/else}
+                                <tr>
+                                    <td colspan="5" class="layer-text-center">暂无记录</td>
+                                </tr>
+                           {/if}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+
+        // 删除元素
+        var url = "{:url('app.help/delete')}";
+        $('.item-delete').delete('help_id', url);
+
+    });
+</script>
+

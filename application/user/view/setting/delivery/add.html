@@ -1,0 +1,109 @@
+<div class="row-content layer-cf">
+    <div class="row">
+        <div class="layer-u-sm-12 layer-u-md-12 layer-u-lg-12">
+            <div class="widget layer-cf widget-bff">
+                <form id="my-form" class="layer-form tpl-form-line-form" method="post">
+                    <div class="widget-body">
+                        <fieldset>
+                            <div class="widget-head layer-cf">
+                                <div class="widget-title layer-fl">新建运费模版</div>
+                            </div>
+                            <div class="layer-form-group">
+                                <label class="layer-u-sm-3 layer-u-lg-2 layer-form-label form-require">模版名称 </label>
+                                <div class="layer-u-sm-9 layer-u-end">
+                                    <input type="text" class="tpl-form-input" name="delivery[name]"
+                                           value="" required>
+                                </div>
+                            </div>
+                            <div class="layer-form-group">
+                                <label class="layer-u-sm-3 layer-u-lg-2 layer-form-label form-require">计费方式 </label>
+                                <div class="layer-u-sm-9 layer-u-end">
+                                    <label class="layer-radio-inline">
+                                        <input type="radio" name="delivery[method]" value="10" data-am-ucheck
+                                               checked> 按件数
+                                    </label>
+                                    <label class="layer-radio-inline">
+                                        <input type="radio" name="delivery[method]" value="20" data-am-ucheck>
+                                        按重量
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="layer-form-group">
+                                <label class="layer-u-sm-3 layer-u-lg-2 layer-form-label form-require">
+                                    配送区域及运费
+                                </label>
+                                <div class="layer-u-sm-9 layer-u-lg-10 layer-u-end">
+                                    <div class=" layer-scrollable-horizontal">
+                                        <table class="regional-table layer-table layer-table-bordered
+                                         layer-table-centered layer-margin-bottom-xs">
+                                            <tbody>
+                                            <tr>
+                                                <th width="42%">可配送区域</th>
+                                                <th>
+                                                    <span class="first">首件 (个)</span>
+                                                </th>
+                                                <th>运费 (元)</th>
+                                                <th>
+                                                    <span class="additional">续件 (个)</span>
+                                                </th>
+                                                <th>续费 (元)</th>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="5" class="layer-text-left">
+                                                    <a class="add-region layer-btn layer-btn-default layer-btn-xs"
+                                                       href="javascript:;">
+                                                        <i class="iconfont icon-dingwei"></i>
+                                                        点击添加可配送区域和运费
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="layer-form-group">
+                                <label class="layer-u-sm-3 layer-u-lg-2 layer-form-label form-require">排序 </label>
+                                <div class="layer-u-sm-9 layer-u-end">
+                                    <input type="number" class="tpl-form-input" name="delivery[sort]"
+                                           value="100" required>
+                                    <small>数字越小越靠前</small>
+                                </div>
+                            </div>
+                            <div class="layer-form-group">
+                                <div class="layer-u-sm-9 layer-u-sm-push-3 layer-margin-top-lg">
+                                    <button type="submit" class="j-submit layer-btn layer-btn-secondary">提交
+                                    </button>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="regional-choice"></div>
+<script src="/assets/user/js/delivery.js"></script>
+<script>
+    $(function () {
+
+        // 初始化区域选择界面
+        var datas = JSON.parse('<?= $regionData ?>');
+
+        // 配送区域表格
+        new Delivery({
+            table: '.regional-table',
+            regional: '.regional-choice',
+            datas: datas
+        });
+
+        /**
+         * 表单验证提交
+         * @type {*}
+         */
+        $('#my-form').superForm();
+
+    });
+</script>
